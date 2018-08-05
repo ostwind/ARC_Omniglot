@@ -79,7 +79,7 @@ def train(loader):
                     eval_acc = 0 
                     for test_ind in range(100):
                         # remove 'part' argument to randomly choose alphabet
-                        X_val, Y_val = loader.fetch_batch()#part = alphabet)
+                        X_val, Y_val = loader.fetch_batch(part = alphabet)
                         if use_cuda:
                             X_val, Y_val = X_val.cuda(), Y_val.cuda()
             
