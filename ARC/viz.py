@@ -8,14 +8,19 @@ def stroke_stats():
     
     filename = "./data/omniglot_strokes.npz"  
     load_data = np.load(filename, encoding =  'bytes')
+    
+    # data here has the format:
+    # (delta X, delta Y, pen on/off)
     train_set = load_data['train']
     valid_set = load_data['valid']
     test_set = load_data['test']
     
-    # (delta X, delta Y, pen on/off)
+    # computes euclidean distance of a stroke
     def stroke_distance(del_x, del_y):
         return np.sqrt( del_x**2 + del_y**2 )
 
+    # keep  track of number of times the pen was lifted, so # of strokes
+    # also the average stroke length 
     stroke_data = {}
     stroke_data['num_strokes'] = []
     stroke_data['avg_stroke_len'] = []
@@ -73,11 +78,16 @@ def tsne_alph(alphabet_index = 23, perp= 80):
     resized_chars -= resized_chars.mean()/255 
 
     #5, 6 = Japanese
-    #indices = list(range(2000))
+    
+    # here we include 2000 extra drawings during the t-SNE computation, but do not project them.
+    # this adds more structure to the low dimension output
     indices = list( range( (a_start[alphabet_index]*20 )-2000,
                              (a_start[alphabet_index]+a_size[alphabet_index])*20 ) )
     alphabet_range = resized_chars[ indices  ]
+
+    #PCA was also tried, the results are also interesting (sometimes)
     #chars_embedded = PCA(n_components=2).fit_transform(alphabet_range)
+
     chars_embedded = TSNE(n_components=2, perplexity=perp).fit_transform(alphabet_range)
     
     fig, ax = plt.subplots()
@@ -94,7 +104,8 @@ def tsne_alph(alphabet_index = 23, perp= 80):
         
         ind = int(i/20)                            
         image = OffsetImage(image, cmap=colors[ ind%len(colors) ], zoom=0.4)
-        
+
+        # syntax to display images instead of points    
         ab = AnnotationBbox(image, (x, y), xycoords='data', frameon=False)
         ax.add_artist(ab)
         ax.plot(x, y)
@@ -102,6 +113,11 @@ def tsne_alph(alphabet_index = 23, perp= 80):
     plt.show()
 
 def glimpse_stats():
+    ''' to build the glimpse score graph, a special matrix was outputted at the forward() function of
+    the model, for each batch. We then separate the negative values from the positive to understand 
+    similarity score patterns, e.g. ARC seeks to discriminate based on evidence, not to look for similarities 
+    '''
+
     path = './data/glimpse_stats/'
     glimpse_table = np.zeros(1)
     for numpy_file in glob.glob("%s*.npy" %path):

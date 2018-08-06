@@ -83,7 +83,7 @@ def train(loader):
                         if use_cuda:
                             X_val, Y_val = X_val.cuda(), Y_val.cuda()
             
-                        pred_val = model(X_val, test_ind)
+                        pred_val = model(X_val)
                         eval_acc += one_shot_eval(pred_val, Y_val )
                     
                     one_shot_by_alphabet.append(  round(eval_acc/300,2) )
