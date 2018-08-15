@@ -1,5 +1,5 @@
 # ARC_Omniglot
-Challenge submission for Fellowship.AI 
+The Attentive Recurrent Comparator (ARC) catches the difference between two characters in the same way that humans do: by iteratively glancing between the images. 
 
 ## Please see fellowship_submission.ipynb for analysis
 
