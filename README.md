@@ -2,7 +2,7 @@
 The Attentive Recurrent Comparator (ARC) catches the difference between two characters in the same way that humans do: by iteratively glancing between the images. Our experiment follows [the original ARC paper by P. Shyam, et. al.](https://arxiv.org/abs/1703.00767) as 20-way one shot classification on the Omniglot dataset.
 
 For two characters, blue boxes in the example below denote areas the model is attending to. As the model narrows its search
-on details of both characters, its confidence in a shared character class falls ( right plot ). This image from figure 3 in the original paper. 
+on details of both characters, its confidence in a shared character class falls ( right plot ), despite earlier evidence of similarity. This image from figure 3 in the original paper. 
 
 ![comparison process](https://github.com/ostwind/ARC_Omniglot/blob/master/papers/comparison_example.png)
 
