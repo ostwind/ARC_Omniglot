@@ -1,9 +1,18 @@
 # ARC_Omniglot
 The Attentive Recurrent Comparator (ARC) catches the difference between two characters in the same way that humans do: by iteratively glancing between the images. 
 
-## Please see fellowship_submission.ipynb for analysis
+Our experiment follows [ARC implementation of P. Shyam, et. al.](https://arxiv.org/abs/1703.00767) as 20-way one shot classification on the Omniglot dataset.
 
-## To run the model
+The authors report 97.75% accuracy for Within Alphabet classification, we achieve 75% (+/- 3%) accuracy in a similar set-up, for several hundred one-shot classifications over the test set. For an alphabet in the wild, we can expect ARC to complete 20-way one-shot classification with 76.1% (+/- 6.4%) accuracy. We conclude that the implemented model has grasped the ability to discriminate between simple visual concepts fairly well.
+
+![Omniglot PCA](https://octodex.github.com/images/yaktocat.png)
+
+The motivation for ARC's complexity, why Omniglot is more complex than MNIST, and how iterative attention glances 'hone in' on character details, are part of the exploration in fellowship_submission.ipynb.   
+
+
+
+
+## Installation
 
 0. update pytorch to 0.4.1. Do this if you have conda:
     - conda config --add channels soumith
